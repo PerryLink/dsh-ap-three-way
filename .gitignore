@@ -1,0 +1,7 @@
+node_modules/
+lib/
+pack.json
+evidence/raw/
+*.tgz
+.env
+*.pem

@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-ap-three-way
+      name: '@perrylink/dsh-ap-three-way'
