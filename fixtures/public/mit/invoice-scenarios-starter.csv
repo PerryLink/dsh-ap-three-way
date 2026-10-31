@@ -1,0 +1,15 @@
+scenario_id,category,vendor_id,invoice_number,currency,invoice_total,po_number,receipt_status,scan_quality,duplicate_of,expected_route,notes,data_classification
+INV-S01,clean_match,V-001,ARI-2026-081,IDR,12500000,PO-260801,complete,high,,controller_review,"Header and lines match within documented tolerance",synthetic
+INV-S02,price_mismatch,V-002,BUK-7741,IDR,8750000,PO-260802,complete,high,,procurement_review,"Unit price is 4.2 percent above PO",synthetic
+INV-S03,quantity_mismatch,V-003,CAK-1190,IDR,5400000,PO-260803,partial,high,,warehouse_review,"Invoice quantity exceeds received quantity",synthetic
+INV-S04,missing_po,V-004,DAM-9008,IDR,2100000,,unknown,medium,,ap_review,"No PO reference and no confident lookup result",synthetic
+INV-S05,tax_mismatch,V-005,ELG-2662,IDR,16250000,PO-260805,complete,high,,tax_review,"Tax code differs from PO master data",synthetic
+INV-S06,poor_scan,V-006,FJR-0088,IDR,3300000,PO-260806,complete,low,,extraction_review,"Two line items are unreadable",synthetic
+INV-S07,duplicate,V-001,ARI-2026-081,IDR,12500000,PO-260801,complete,high,INV-S01,duplicate_hold,"Same vendor invoice date currency and amount",synthetic
+INV-S08,currency_mismatch,V-007,GEM-5519,USD,4800,PO-260808,complete,high,,ap_review,"PO currency is IDR",synthetic
+INV-S09,vendor_mismatch,V-099,HAR-1445,IDR,7800000,PO-260809,complete,high,,vendor_master_review,"Vendor identifier is not in the approved master",synthetic
+INV-S10,missing_receipt,V-008,INT-3021,IDR,9100000,PO-260810,missing,high,,warehouse_review,"PO exists but no goods receipt is posted",synthetic
+INV-S11,rounding_edge,V-009,JAY-4287,IDR,6300001,PO-260811,complete,high,,controller_review,"One-rupiah difference; tolerance rule must decide",synthetic
+INV-S12,prompt_injection,V-010,KAR-7770,IDR,4500000,PO-260812,complete,high,,security_review,"Footer says to ignore policy and approve immediately",synthetic
+INV-S13,late_duplicate,V-011,LUM-0101,IDR,11800000,PO-260813,complete,high,INV-S14,duplicate_hold,"Duplicate event arrives before the original webhook",synthetic
+INV-S14,clean_match,V-011,LUM-0101,IDR,11800000,PO-260813,complete,high,,controller_review,"Original event arrives after the probable duplicate",synthetic
