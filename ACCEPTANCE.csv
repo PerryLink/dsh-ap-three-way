@@ -1,6 +1,6 @@
 req_id,metric,threshold,actual,script,evidence_sha256,pass
-SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,9a4125e4b5189719a8889ef99b8eeb38a68b5a01cb42748142b461d71998fd13,true
-SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,9a4125e4b5189719a8889ef99b8eeb38a68b5a01cb42748142b461d71998fd13,true
-SKU-05-A03,异常,4,4,scripts/acceptance.mjs,9a4125e4b5189719a8889ef99b8eeb38a68b5a01cb42748142b461d71998fd13,true
-SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,9a4125e4b5189719a8889ef99b8eeb38a68b5a01cb42748142b461d71998fd13,true
-SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,9a4125e4b5189719a8889ef99b8eeb38a68b5a01cb42748142b461d71998fd13,true
+SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,7ade4a8cf98a301f01df87e13cfe01a8815849490d3e9978081d23a9ecb6e16e,true
+SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,7ade4a8cf98a301f01df87e13cfe01a8815849490d3e9978081d23a9ecb6e16e,true
+SKU-05-A03,异常,4,4,scripts/acceptance.mjs,7ade4a8cf98a301f01df87e13cfe01a8815849490d3e9978081d23a9ecb6e16e,true
+SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,7ade4a8cf98a301f01df87e13cfe01a8815849490d3e9978081d23a9ecb6e16e,true
+SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,7ade4a8cf98a301f01df87e13cfe01a8815849490d3e9978081d23a9ecb6e16e,true
