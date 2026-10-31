@@ -1,6 +1,6 @@
 req_id,metric,threshold,actual,script,evidence_sha256,pass,source,counted
-SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,aad36f27946363837a451217fc500617ccfb27c02cfe35fc75e886fe25520004,true,public/synthetic,false
-SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,aad36f27946363837a451217fc500617ccfb27c02cfe35fc75e886fe25520004,true,public/synthetic,false
-SKU-05-A03,异常,4,4,scripts/acceptance.mjs,aad36f27946363837a451217fc500617ccfb27c02cfe35fc75e886fe25520004,true,public/synthetic,false
-SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,aad36f27946363837a451217fc500617ccfb27c02cfe35fc75e886fe25520004,true,public/synthetic,false
-SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,aad36f27946363837a451217fc500617ccfb27c02cfe35fc75e886fe25520004,true,public/synthetic,false
+SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,ae8335416008c3a91fe7519421f5d88e68e52ce767f514c3811a3074a00240c3,true,public/synthetic,false
+SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,ae8335416008c3a91fe7519421f5d88e68e52ce767f514c3811a3074a00240c3,true,public/synthetic,false
+SKU-05-A03,异常,4,4,scripts/acceptance.mjs,ae8335416008c3a91fe7519421f5d88e68e52ce767f514c3811a3074a00240c3,true,public/synthetic,false
+SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,ae8335416008c3a91fe7519421f5d88e68e52ce767f514c3811a3074a00240c3,true,public/synthetic,false
+SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,ae8335416008c3a91fe7519421f5d88e68e52ce767f514c3811a3074a00240c3,true,public/synthetic,false

@@ -1,6 +1,6 @@
 {
-  "name": "@perrylink/dsh-ap-three-way",
-  "version": "0.1.0-alpha.2",
+  "name": "dsh-ap-three-way",
+  "version": "0.1.0-alpha.3",
   "description": "AP invoice/PO/GRN three-way match with tolerance policy and exception workpaper.",
   "type": "module",
   "main": "./lib/plugin/index.js",

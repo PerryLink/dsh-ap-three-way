@@ -1,4 +1,4 @@
-# @perrylink/dsh-ap-three-way
+# dsh-ap-three-way
 
 AP invoice/PO/GRN three-way match with tolerance policy and exception workpaper for DeepSeek Harness.
 
@@ -7,7 +7,7 @@ AP invoice/PO/GRN three-way match with tolerance policy and exception workpaper 
 ## Install
 
 ```sh
-dsh plugin --profile <profile> add @perrylink/dsh-ap-three-way
+dsh plugin --profile <profile> add dsh-ap-three-way
 dsh --profile <profile> --dump-config | grep dsh-ap-three-way
 ```
 
@@ -16,7 +16,7 @@ Requires DSH `>=0.2.1-rc.3 <0.3.0` and Node `>=24.9 <25`.
 <details>
 <summary>中文摘要</summary>
 
-发票/PO/GRN 三单匹配、容差与例外底稿。 安装：`dsh plugin --profile <profile> add @perrylink/dsh-ap-three-way`。公开/合成、alpha、非 GA。
+发票/PO/GRN 三单匹配、容差与例外底稿。 安装：`dsh plugin --profile <profile> add dsh-ap-three-way`。公开/合成、alpha、非 GA。
 
 </details>
 
