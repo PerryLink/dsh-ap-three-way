@@ -1,3 +1,3 @@
-# Public MIT invoice scenarios
+# Public MIT invoice XML sample
 
-`invoice-scenarios-starter.csv` from [Jokskuyy/jalan-kebenaran](https://github.com/Jokskuyy/jalan-kebenaran), MIT; see `LICENSE`. The file marks its rows `synthetic`; it is a public scenario table, not customer evidence and not in the npm tarball.
+`invoice-github-sample.xml` from [cuicuicuicui1/invoice-github](https://github.com/cuicuicuicui1/invoice-github), MIT; see `LICENSE`. The repository marks it as synthetic. Used by `ap.import_invoice_xml`; public sample, not customer evidence, not in npm tarball.

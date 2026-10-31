@@ -1,0 +1,45 @@
+{
+  "run_id": "sku05-1793423342370",
+  "scope": "SKU-05-S1",
+  "status": "partial",
+  "counted": false,
+  "note": "synthetic; user-approved public/synthetic; 0 real firms",
+  "metrics": [
+    {
+      "i": "SKU-05-A01",
+      "m": "发票行解析",
+      "t": "20/20",
+      "a": 20,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A02",
+      "m": "1:1 三单匹配",
+      "t": "16/20",
+      "a": 16,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A03",
+      "m": "异常",
+      "t": "4",
+      "a": 4,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A04",
+      "m": "底稿 sheet",
+      "t": "2",
+      "a": 2,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A05",
+      "m": "XML 发票导入",
+      "t": "1",
+      "a": 1,
+      "p": true
+    }
+  ],
+  "pass": true
+}

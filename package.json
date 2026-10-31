@@ -1,6 +1,6 @@
 {
   "name": "@perrylink/dsh-ap-three-way",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "AP three-way match (invoice/PO/GRN) with tolerance policy and exception workpaper (SKU-05 S1 public/synthetic demo).",
   "type": "module",
   "main": "./lib/plugin/index.js",
@@ -62,9 +62,10 @@
     "@deepseek-ai/dsh-tools": ">=0.2.1-rc.3 <0.3.0"
   },
   "dependencies": {
+    "fast-xml-parser": "5.11.2",
     "fflate": "0.8.3",
-    "zod": "4.4.3",
-    "xlsx": "0.18.5"
+    "xlsx": "0.18.5",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "4.0.5",
