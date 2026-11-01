@@ -1,7 +1,20 @@
 # Changelog
 
-## 0.1.0-alpha.1 — 2026-10-31
+All notable changes to `dsh-ap-three-way` are documented here. The format follows Keep a Changelog; this project uses alpha versions.
 
-- Added `ap.import_invoice_xml` with MIT synthetic XML sample; 5 gate rows.
-## 0.1.0-alpha.0 — 2026-10-31
-- First S1: invoice/PO/GRN CSV import, three-way match, exception workbook.
+## [0.1.0-alpha.5] — 2026-11-01
+
+### Added
+
+- Five-language READMEs: English, 简体中文, Español, Português, हिन्दी.
+- Local workflow SVG at `docs/assets/dsh-ap-three-way-flow.svg`.
+- Family cross-links (domain index, checker family, `dsh-kit`), compatibility, permissions, and related-work sections.
+- Standard repository files: `SECURITY.md`, `PRIVACY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `icon.svg`.
+
+### Changed
+
+- README aligned with the PerryLink DSH checker/plugin family style; package remains public/synthetic, alpha, not GA.
+
+## [Earlier]
+
+Earlier alpha builds are available from npm and GitHub Releases; this file starts at the family-standard documentation wave.
