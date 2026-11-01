@@ -2,7 +2,7 @@
 
 All notable changes to `dsh-ap-three-way` are documented here. The format follows Keep a Changelog; this project uses alpha versions.
 
-## [0.1.0-alpha.5] — 2026-11-01
+## [0.1.0-alpha.6] — 2026-11-01
 
 ### Added
 
