@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.0-alpha.8] — 2026-11-01
+
+### Added
+
+- `ap.tolerance_match`: three-way match with a configurable policy — price, quantity and amount tolerances in basis points, explicit `matched`/`exception` reasons, and header-only GRN treated as "no receipt". Read-only; it does not overwrite stored matches. Verified by `node --test test/*.test.mjs` (8/8); fixtures are our own public/synthetic rows.
+
 ## [0.1.0-alpha.7] — 2026-11-01
 
 ### Changed

@@ -10,5 +10,11 @@
     "kind": "demo",
     "alt": "Animated dsh-ap-three-way terminal session",
     "caption": "The same run, assembled line by line."
+  },
+  {
+    "path": "docs/assets/dsh-ap-three-way-capability.png",
+    "kind": "capability",
+    "alt": "dsh-ap-three-way real test run",
+    "caption": "Real command: node --test test/ap-tolerance.test.mjs — 4 tests passed, 0 failed (configurable price/quantity/amount tolerances). Run 2026-11-01; the image is rendered from the captured terminal output."
   }
 ]
