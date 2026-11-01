@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.1.0-alpha.8] — 2026-11-01
+## [0.1.0-alpha.9] — 2026-11-01
+
+### Added
+
+- `ap.duplicate_check`: duplicate invoice-line detection (same supplier, PO line, quantity and amount) before matching; supplier names are compared case- and space-insensitively. Verified by `node --test test/*.test.mjs` (11/11).
+
+## [Unreleased]
 
 ### Added
 

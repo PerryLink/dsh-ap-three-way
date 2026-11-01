@@ -3,7 +3,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import * as XLSX from 'xlsx'
 import { defineTool } from '@deepseek-ai/dsh-tools'
-import { ApError, matchLine, parseGrn, parseInvoiceXml, parseInvoices, parsePo } from '../core/ap.js'
+import { ApError, duplicateInvoiceLines, matchLine, parseGrn, parseInvoiceXml, parseInvoices, parsePo } from '../core/ap.js'
 import type { GrnRecord, InvoiceRecord, MatchRecord, PoRecord, Table } from './storage.js'
 import { DEFAULT_TOLERANCE, matchWithTolerance } from '../core/tolerance.js'
 export interface ToolDeps{invoices:Table<InvoiceRecord>;po:Table<PoRecord>;grn:Table<GrnRecord>;matches:Table<MatchRecord>;baseDir:string}
@@ -24,5 +24,7 @@ export function createTools(deps:ToolDeps){
    return {lines:results.length,matched,exceptions:results.length-matched,results}
  }})
 
- return [imp,invoiceXml,match,exp,toleranceTool]
+ const dupTool=defineTool({name:'ap.duplicate_check',description:'Detect duplicate invoice lines by supplier, PO line, quantity and amount before matching. Read-only.',parameters:{invoices_csv:{type:'string',required:true}},output:{schema:{type:'object',additionalProperties:false,properties:{lines:{type:'number',required:true},duplicates:{type:'array',required:true,items:{type:'object',additionalProperties:false,properties:{supplier:{type:'string',required:true},po_no:{type:'string',required:true},line_no:{type:'string',required:true},occurrences:{type:'number',required:true}}}}}},render:(_a,v)=>text('duplicates='+v.duplicates.length)},async execute(a){const lines=parseInvoices(a.invoices_csv,sha(a.invoices_csv));const dups=duplicateInvoiceLines(lines);return{lines:lines.length,duplicates:dups.map((d)=>({supplier:d.line.supplier,po_no:d.line.po_no,line_no:d.line.line_no,occurrences:d.occurrences}))}}})
+
+ return [imp,invoiceXml,match,exp,toleranceTool,dupTool]
 }

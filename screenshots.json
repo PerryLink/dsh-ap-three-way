@@ -16,5 +16,11 @@
     "kind": "capability",
     "alt": "dsh-ap-three-way real test run",
     "caption": "Real command: node --test test/ap-tolerance.test.mjs — 4 tests passed, 0 failed (configurable price/quantity/amount tolerances). Run 2026-11-01; the image is rendered from the captured terminal output."
+  },
+  {
+    "path": "docs/assets/dsh-ap-three-way-capability2.png",
+    "kind": "capability",
+    "alt": "dsh-ap-three-way second capability run",
+    "caption": "Real command: node --test test/duplicates.test.mjs — 3 tests passed, 0 failed (Duplicate invoice line detection before matching.) Run 2026-11-01; rendered from the captured terminal output."
   }
 ]

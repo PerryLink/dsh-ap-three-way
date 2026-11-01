@@ -32,3 +32,16 @@ export function parseInvoiceXml(text: string, poNo = ''): InvoiceLine[] {
     evidence_sha256: '',
   }))
 }
+
+export interface DuplicateInvoiceLine { line: InvoiceLine; occurrences: number }
+/** Duplicate detection over imported invoice lines: the same supplier, PO line, quantity and amount twice. */
+export function duplicateInvoiceLines(lines: InvoiceLine[]): DuplicateInvoiceLine[] {
+  const buckets = new Map<string, InvoiceLine[]>()
+  for (const line of lines) {
+    const key = [line.supplier.trim().toLowerCase(), line.po_no, line.line_no, line.qty, line.unit_price_cents, line.amount_cents].join('|')
+    const bucket = buckets.get(key) ?? []
+    bucket.push(line)
+    buckets.set(key, bucket)
+  }
+  return [...buckets.values()].filter((b) => b.length > 1).map((b) => ({ line: b[0]!, occurrences: b.length }))
+}
