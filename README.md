@@ -33,6 +33,10 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 *Workflow: local input → plugin → local output. No model call is required.*
 
+![Real dsh-ap-three-way terminal output](docs/assets/dsh-ap-three-way-hero.png)
+
+*Real local test run; no model or network call.*
+
 ## Install
 
 Install and verify:
@@ -86,7 +90,7 @@ dsh --profile <profile> --dump-config | grep dsh-ap-three-way
 
 ### Fixture-backed example
 
-Input: [`fixtures/public/mit/invoice-github-sample.xml`](fixtures/public/mit/invoice-github-sample.xml)
+Input: [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml)
 
 Command: `pnpm test`
 
@@ -136,6 +140,17 @@ pnpm build && pnpm lint && pnpm typecheck && pnpm test
 
 Sibling packages and family indexes: [dsh-einvoice](https://github.com/PerryLink/dsh-einvoice) · [dsh-bankrec](https://github.com/PerryLink/dsh-bankrec) · [dsh-travel-recon](https://github.com/PerryLink/dsh-travel-recon) · [dsh-finops-suite](https://github.com/PerryLink/dsh-finops-suite)
 
+
+### Related checkers
+
+Each entry is a separate package with its own rule pack and version; install only the ones you need.
+
+| Package | Why it is relevant |
+|---|---|
+| [`dsh-invoice-ledger`](https://github.com/PerryLink/dsh-invoice-ledger) | Invoice-side duplicate and arithmetic checks before or after the three-way match. |
+| [`dsh-excel-reconcile`](https://github.com/PerryLink/dsh-excel-reconcile) | Fallback two-table alignment when PO/GRN data arrives as flat files. |
+
+- [Troubleshooting](TROUBLESHOOTING.md)
 - [Domain index](https://perrylink.github.io/dsh-plugins/)
 - [Checker family](https://perrylink.github.io/zh/checkers/)
 - [Mainline family](https://github.com/PerryLink/dsh-kit)

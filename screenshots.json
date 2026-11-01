@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-ap-three-way-hero.png",
+    "kind": "hero",
+    "alt": "dsh-ap-three-way terminal output",
+    "caption": "Real dsh-ap-three-way local test run; 4 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-ap-three-way-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-ap-three-way terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]

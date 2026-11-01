@@ -33,6 +33,10 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 *वर्कफ़्लो: स्थानीय इनपुट → प्लगइन → स्थानीय आउटपुट। मॉडल कॉल आवश्यक नहीं।*
 
+![Real dsh-ap-three-way terminal output](docs/assets/dsh-ap-three-way-hero.png)
+
+*वास्तविक स्थानीय परीक्षण; कोई मॉडल या नेटवर्क कॉल नहीं।*
+
 ## इंस्टॉल
 
 इंस्टॉल और सत्यापन:
@@ -86,7 +90,7 @@ dsh --profile <profile> --dump-config | grep dsh-ap-three-way
 
 ### fixture-आधारित उदाहरण
 
-इनपुट: [`fixtures/public/mit/invoice-github-sample.xml`](fixtures/public/mit/invoice-github-sample.xml)
+इनपुट: [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml)
 
 कमांड: `pnpm test`
 
@@ -136,6 +140,9 @@ pnpm build && pnpm lint && pnpm typecheck && pnpm test
 
 सहोदर पैकेज और परिवार सूचकांक: [dsh-einvoice](https://github.com/PerryLink/dsh-einvoice) · [dsh-bankrec](https://github.com/PerryLink/dsh-bankrec) · [dsh-travel-recon](https://github.com/PerryLink/dsh-travel-recon) · [dsh-finops-suite](https://github.com/PerryLink/dsh-finops-suite)
 
+संबंधित चेकर (अंग्रेज़ी तालिका): [Related checkers](README.md#related-checkers).
+
+- [समस्या निवारण (अंग्रेज़ी)](TROUBLESHOOTING.md)
 - [डोमेन सूचकांक](https://perrylink.github.io/dsh-plugins/)
 - [चेकर परिवार](https://perrylink.github.io/zh/checkers/)
 - [मुख्य परिवार](https://github.com/PerryLink/dsh-kit)
