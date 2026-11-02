@@ -1,8 +1,8 @@
 req_id,metric,threshold,actual,script,evidence_sha256,pass,source,counted
-SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A03,异常,4,4,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A06,可配置容差匹配(10%),20/20,20,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
-SKU-05-A07,重复发票行检测,0,0,scripts/acceptance.mjs,5b820e8b47438b202771255b7df0e954911630cb2848c4d259ada79439c1d809,true,public/synthetic,false
+SKU-05-A01,发票行解析,20/20,20,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A02,1:1 三单匹配,16/20,16,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A03,异常,4,4,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A04,底稿 sheet,2,2,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A05,XML 发票导入,1,1,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A06,可配置容差匹配(10%),20/20,20,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
+SKU-05-A07,重复发票行检测,0,0,scripts/acceptance.mjs,8ad9fb4c8c619a626d0153990a210a8f4930b9856ba66c7116ead8beb9172544,true,public/synthetic,false
