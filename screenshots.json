@@ -1,5 +1,16 @@
 [
   {
+    "path": "docs/assets/quickstart.png",
+    "kind": "quickstart",
+    "alt": "dsh-ap-three-way quickstart run on the shipped synthetic sample",
+    "caption": "Real run: node samples/quickstart/run.mjs on samples/quickstart/input; output matches samples/quickstart/expected/result.json.",
+    "command": "node samples/quickstart/run.mjs",
+    "run_at": "2026-11-02T20:31:15+08:00",
+    "output_sha256": "0ea9da77541b50a22e5316e1b0540785aac11ee3b00d66aaa97faf14ced577e2",
+    "log_sha256": "2bc7990976fafe5d136760926dd4d4da4411a9cecb2d0ae16b668a82b59e2404",
+    "log": "docs/assets/quickstart.txt"
+  },
+  {
     "path": "docs/assets/dsh-ap-three-way-hero.png",
     "kind": "hero",
     "alt": "dsh-ap-three-way terminal output",

@@ -1,0 +1,74 @@
+{
+  "package": "dsh-ap-three-way",
+  "sample": "synthetic/quickstart",
+  "imported": {
+    "invoices": 4,
+    "po": 4,
+    "grn": 4,
+    "skipped": 0
+  },
+  "match": {
+    "matched": 2,
+    "exceptions": 2,
+    "exception_detail": [
+      {
+        "po_no": "PO-9002",
+        "line_no": "1",
+        "reason": "qty_over_grn",
+        "qty_delta": 2,
+        "price_delta_cents": 50
+      },
+      {
+        "po_no": "PO-9003",
+        "line_no": "1",
+        "reason": "price_tolerance",
+        "qty_delta": 0,
+        "price_delta_cents": 3000
+      }
+    ]
+  },
+  "tolerance": {
+    "price_bps": 1200,
+    "matched": 3,
+    "exceptions": 1,
+    "exception_detail": [
+      {
+        "po_no": "PO-9002",
+        "line_no": "1",
+        "reason": "qty_over_grn"
+      }
+    ]
+  },
+  "duplicates": {
+    "lines": 3,
+    "duplicates": [
+      {
+        "supplier": "ACME",
+        "po_no": "PO-9001",
+        "line_no": "1",
+        "occurrences": 2
+      }
+    ]
+  },
+  "xml": {
+    "rows": 1,
+    "supplier": "DELTA SUPPLIES"
+  },
+  "workpaper": {
+    "sheets": [
+      "Matches",
+      "Exceptions"
+    ],
+    "rows": [
+      3,
+      3
+    ]
+  },
+  "input_sha256": {
+    "invoices.csv": "0337e4878830724b4e955a0a0aa6c04104d2e0c5265c036c87905471ddf6e925",
+    "po.csv": "07303b09e24168e8a3dba2aa78eb0b507ae1399b9878e1c3b53b547df93549b6",
+    "grn.csv": "e502b5121317533ec862031d42872f079a0c693009e4abbe79b5b88f44880a8b",
+    "invoices-duplicate.csv": "0538b901c452169413f93fd40e99a72f7c2c52b16f1eb60294af07a8d89e0bad",
+    "invoice-sample.xml": "6c64e9a9a0df235557f0fa224137bb319f5746761944637717795d1e40fa1e5c"
+  }
+}

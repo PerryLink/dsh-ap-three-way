@@ -1,6 +1,6 @@
 {
   "name": "dsh-ap-three-way",
-  "version": "0.1.0-alpha.11",
+  "version": "0.1.0-alpha.12",
   "description": "AP invoice/PO/GRN three-way match with tolerance policy and exception workpaper.",
   "type": "module",
   "main": "./lib/plugin/index.js",
@@ -23,6 +23,7 @@
     "README-pt.md",
     "README-hi.md",
     "docs/assets",
+    "samples",
     "SECURITY.md",
     "PRIVACY.md",
     "CODE_OF_CONDUCT.md",
@@ -35,6 +36,20 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "demo": {
+      "sample": "samples/quickstart/input",
+      "prompt": "帮我用自带样例做一次发票、采购单、收货单三单匹配，把能过的和例外分别列出来。",
+      "expect": "samples/quickstart/expected/result.json",
+      "screenshot": "docs/assets/quickstart.png",
+      "reads": [
+        "用户指定的发票/采购单/收货单 CSV 与发票 XML"
+      ],
+      "writes": [
+        "$DSH_HOME/storages/dsh-ap-three-way"
+      ],
+      "network": false,
+      "external": []
     }
   },
   "engines": {

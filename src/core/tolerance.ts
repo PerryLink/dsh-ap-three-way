@@ -39,11 +39,11 @@ export function validatePolicy(policy: TolerancePolicy): void {
   for (const key of ['price_bps', 'qty_bps', 'amount_bps'] as const) {
     const value = policy[key]
     if (!Number.isInteger(value) || value < 0 || value > 10000) {
-      throw new Error(`E_AP_POLICY: ${key} must be an integer between 0 and 10000`)
+      throw new Error(`容差参数 ${key} 超出范围（E_AP_POLICY）｜下一步：把 ${key} 设为 0–10000 的整数`)
     }
   }
   if (!Number.isInteger(policy.min_price_cents) || policy.min_price_cents < 0) {
-    throw new Error('E_AP_POLICY: min_price_cents must be a non-negative integer')
+    throw new Error('最小价格容差不能为负（E_AP_POLICY）｜下一步：把 min_price_cents 设为 0 或正整数')
   }
 }
 

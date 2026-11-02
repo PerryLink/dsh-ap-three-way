@@ -4,8 +4,8 @@ export interface PoLine { po_no:string; line_no:string; qty:number; unit_price_c
 export interface GrnLine { po_no:string; line_no:string; qty:number }
 export interface ApMatch { match_id:string; invoice_id:string; po_no:string; line_no:string; qty_delta:number; price_delta_cents:number; state:'matched'|'exception'; reason:string; created_at:string }
 export type ApErrorCode='E_AP_CSV_INVALID'|'E_AP_MATCH_FAILED'|'E_AP_EXPORT_FAILED'|'E_AP_PATH_INVALID'|'E_AP_PATH_NOT_ALLOWED'
-export class ApError extends Error { readonly code:ApErrorCode; constructor(code:ApErrorCode,message:string){super(`${code}: ${message}`);this.name='ApError';this.code=code} }
-export function cents(raw:string):number{const v=raw.trim().replace(/[¥￥,\s]/g,'');const m=/^(-?)(\d+)(?:\.(\d{1,2}))?$/.exec(v);if(!m)throw new ApError('E_AP_CSV_INVALID',`bad amount ${raw}`);return (m[1]==='-'?-1:1)*(Number(m[2])*100+Number((m[3]??'').padEnd(2,'0')))}
+export class ApError extends Error { readonly code:ApErrorCode; constructor(code:ApErrorCode,message:string,next?:string){super(next?`${message}（${code}）｜下一步：${next}`:`${message}（${code}）`);this.name='ApError';this.code=code} }
+export function cents(raw:string):number{const v=raw.trim().replace(/[¥￥,\s]/g,'');const m=/^(-?)(\d+)(?:\.(\d{1,2}))?$/.exec(v);if(!m)throw new ApError('E_AP_CSV_INVALID',`金额“${raw}”读不懂`,'把金额改成 1234.56 这样的纯数字，最多两位小数');return (m[1]==='-'?-1:1)*(Number(m[2])*100+Number((m[3]??'').padEnd(2,'0')))}
 /**
  * Stable invoice-line primary key: `inv-` + the first 16 hex of
  * sha256(supplier|invoice_no|line_no|qty|unit_price|amount).
@@ -19,7 +19,7 @@ export function invoiceLineId(line:{supplier:string;invoice_no:string;line_no:st
 function rows(text:string):string[][]{const l=text.trim().split(/\r?\n/).filter(Boolean);if(l.length<2)throw new ApError('E_AP_CSV_INVALID','CSV needs header+rows');return l.map(x=>x.split(',').map(y=>y.trim()))}
 export function parseInvoices(text:string,sha:string):InvoiceLine[]{
   const r=rows(text);const h=r[0]!.map(x=>x.toLowerCase());
-  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`missing ${n}`);return i};
+  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`CSV 缺少 ${n} 列`,'按 README 的列名补齐第一行表头后重跑');return i};
   const si=ix('supplier'),pi=ix('po_no'),li=ix('line_no'),qi=ix('qty'),pi2=ix('unit_price'),ai=ix('amount');
   // invoice_no is optional; when the CSV has no such column the PO number identifies the document.
   const ni=h.indexOf('invoice_no');
@@ -27,13 +27,13 @@ export function parseInvoices(text:string,sha:string):InvoiceLine[]{
 }
 export function parsePo(text:string):PoLine[]{
   const r=rows(text);const h=r[0]!.map(x=>x.toLowerCase());
-  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`missing ${n}`);return i};
+  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`CSV 缺少 ${n} 列`,'按 README 的列名补齐第一行表头后重跑');return i};
   const pi=ix('po_no'),li=ix('line_no'),qi=ix('qty'),ui=ix('unit_price'),ai=ix('amount');
   return r.slice(1).map(c=>({po_no:c[pi]??'',line_no:c[li]??'',qty:Number(c[qi]),unit_price_cents:cents(c[ui]??''),amount_cents:cents(c[ai]??'')}))
 }
 export function parseGrn(text:string):GrnLine[]{
   const r=rows(text);const h=r[0]!.map(x=>x.toLowerCase());
-  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`missing ${n}`);return i};
+  const ix=(n:string)=>{const i=h.indexOf(n);if(i<0)throw new ApError('E_AP_CSV_INVALID',`CSV 缺少 ${n} 列`,'按 README 的列名补齐第一行表头后重跑');return i};
   const pi=ix('po_no'),li=ix('line_no'),qi=ix('qty');
   return r.slice(1).map(c=>({po_no:c[pi]??'',line_no:c[li]??'',qty:Number(c[qi])}))
 }

@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.1.0-alpha.11] — 2026-11-01
+## [0.1.0-alpha.12] — 2026-11-01
+
+### Packaging
+
+- Package Standard v1: shipped `samples/quickstart/` (synthetic invoice/PO/GRN CSV + invoice XML + real-output gold `expected/result.json` + runner), `dsh.demo` metadata, README-zh eight blocks (including the demo prompt and permission lines), `docs/assets/quickstart.png` rendered from a real run, and a `PS1-QS01` acceptance row. `npm pack --dry-run` contains `samples/quickstart/*`; `node --test test/*.test.mjs` 26/26.
+- The three most common errors now read `<what happened>（E_XXX）｜下一步：<action>`; `TROUBLESHOOTING.md` lists the three cases with symptom/cause/action.
 
 ### Security / Fixes
 

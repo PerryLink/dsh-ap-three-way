@@ -37,6 +37,76 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 *本地真实测试运行；不调用模型或网络。*
 
+## 一句话
+
+把发票、采购单与收货单逐行比对，列出可过账行和全部例外。
+
+## 适合 / 不适合
+
+- **适合**：几十到几百行的发票、采购单（PO）、收货单（GRN）CSV；需要按容差给出「可过账 / 例外」清单并留底稿的应付对账。
+- **不适合**：需要自动过账、修改供应商主数据或替代审批的场景；本包只做本地匹配，不改任何单据。
+
+## 输入
+
+- 发票 CSV：UTF-8，表头 `supplier,invoice_no,po_no,line_no,qty,unit_price,amount`（`invoice_no` 可省略）。
+- 采购单 CSV：`po_no,line_no,qty,unit_price,amount`；收货单 CSV：`po_no,line_no,qty`。
+- 发票 XML：根节点 `<Invoice>`，含 `Seller/Name` 与 `Items/Item`（`Quantity` / `UnitPrice` / `Amount`）。
+- 金额最多两位小数；建议单个文件 ≤5 MB。自带样例在 `samples/quickstart/input/`（合成数据，远小于 500 KB）。
+
+## 输出
+
+- 终端摘要：可过账几行、例外几行，默认价格容差 1%。
+- 底稿：`$DSH_HOME/storages/dsh-ap-three-way/exports/ap-<时间戳>.xlsx`，工作表 `Matches` / `Exceptions`。
+- 原文件不会被修改。
+
+## 示例
+
+直接复制这句话：
+
+> 帮我用自带样例做一次发票、采购单、收货单三单匹配，把能过的和例外分别列出来。
+
+也可以自己跑（真实运行，截图即来自这条命令）：
+
+```sh
+node samples/quickstart/run.mjs
+```
+
+![dsh-ap-three-way quickstart 真实运行输出](docs/assets/quickstart.png)
+
+*合成样例 → 金标 `samples/quickstart/expected/result.json`；命令与哈希见 `screenshots.json`。*
+
+## 权限
+
+- 读：你指定的发票 / 采购单 / 收货单 CSV 与发票 XML（由会话读取后作为参数传入）；不读其他目录
+- 写：`$DSH_HOME/storages/dsh-ap-three-way`（匹配状态与 `exports/*.xlsx`）；不改原文件
+- 联网：否（源码中没有 HTTP / DNS / WebSocket 调用）
+- 外部系统：无（不连接 ERP / 供应商系统，不上传数据）
+
+写文件的工具标 **R1（本地写）**，只读工具标 **R0**；逐项见下方工具表。
+
+## FAQ
+
+### 装不上怎么办？
+
+确认 DSH `>=0.2.1-rc.3 <0.4.0`、Node `>=24.9 <25`，并用全新的 `DSH_HOME` 重试；完整步骤见 `TROUBLESHOOTING.md`。
+
+### 价格在 1% 以内，为什么还是例外？
+
+默认容差只放宽「单价」，数量超过收货单（`qty_over_grn`）仍然算例外；需要放宽时可显式传 `price_bps` / `qty_bps` 调容差，并保留策略参数。
+
+### 能处理我的真实发票吗？
+
+可以本地运行，但本包是 alpha、只用公开/合成数据验证，不构成审计或付款结论；使用真实数据前请脱敏，并保留复核人。
+
+### 会联网或上传数据吗？
+
+不会。工具、样例和导出都在本机完成。
+
+## 版本
+
+- 当前版本：`0.1.0-alpha.11`（与 `package.json` 一致）
+- 测试：`node --test test/*.test.mjs` 全绿（26 个用例，0 失败）
+
 ## 安装
 
 安装并验证：
@@ -76,8 +146,10 @@ dsh plugin --profile <profile> remove dsh-ap-three-way
 |---|---|---|
 | `ap.import` | 导入发票、PO 和 GRN 行 | R1 local write |
 | `ap.import_invoice_xml` | 导入发票 XML 测试样例 | R1 local write |
-| `ap.match` | 执行三单匹配，默认价格容差 1%，并校验数量 | R0 |
+| `ap.match` | 执行三单匹配，默认价格容差 1%，并校验数量（写入匹配与例外） | R1 local write |
 | `ap.export` | 导出 Matches/Exceptions xlsx | R1 local write |
+| `ap.tolerance_match` | 按可配置容差（bps）重算三单匹配，只读 | R0 |
+| `ap.duplicate_check` | 检测重复发票行，只读 | R0 |
 
 ## 快速开始
 
@@ -86,21 +158,18 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 dsh --profile <profile> --dump-config | grep dsh-ap-three-way
 ```
 
-## 示例
+## 验收示例（fixture + 快速开始）
 
-### fixture 支撑的示例
-
-输入: [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml)
-
-命令: `pnpm test`
-
-验收行:
+- 快速开始：`samples/quickstart/`（合成数据）→ `node samples/quickstart/run.mjs`，金标 `samples/quickstart/expected/result.json`。
+- fixture：`fixtures/public/mit/invoice-github-sample.xml`（公开 MIT 样本）。
+- 验收：`node scripts/acceptance.mjs`，明细见 `ACCEPTANCE.csv`。
 
 | req_id | metric | threshold | actual | pass | source | counted |
 |---|---|---|---|---|---|---|
 | SKU-05-A01 | 发票行解析 | 20/20 | 20 | true | public/synthetic | false |
+| PS1-QS01 | quickstart 样例与金标一致 | 1/1 | 1 | true | synthetic/quickstart | true |
 
-*这是 fixture 支撑的验收行，不是客户运行；没有编造输出。*
+*SKU 行是公开/合成 fixture 检查；PS1-QS01 是随包样例的本地复现，均非客户运行。*
 
 ## 边界
 
@@ -111,7 +180,7 @@ dsh --profile <profile> --dump-config | grep dsh-ap-three-way
 
 ## 公开样例
 
-公开/合成 fixture 在 `fixtures/`；`ACCEPTANCE.csv` 记录公开检查，全部 `counted=false`。
+公开/合成 fixture 在 `fixtures/`；自带快速开始样例在 `samples/quickstart/`（随包发布，≤500 KB）。`ACCEPTANCE.csv` 中 SKU 行 `counted=false`，PS1-QS01 为样例本地复现 `counted=true`。
 
 ## 开发
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+  <InvoiceNo>INV-XML-5001</InvoiceNo>
+  <Seller>
+    <Name>DELTA SUPPLIES</Name>
+  </Seller>
+  <Items>
+    <Item>
+      <Quantity>2</Quantity>
+      <UnitPrice>50.00</UnitPrice>
+      <Amount>100.00</Amount>
+    </Item>
+  </Items>
+</Invoice>
