@@ -1,0 +1,69 @@
+{
+  "run_id": "sku05-1793636440380",
+  "scope": "SKU-05-S1",
+  "status": "partial",
+  "counted": false,
+  "note": "synthetic; user-approved public/synthetic; 0 real firms",
+  "metrics": [
+    {
+      "i": "SKU-05-A01",
+      "m": "发票行解析",
+      "t": "20/20",
+      "a": 20,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A02",
+      "m": "1:1 三单匹配",
+      "t": "16/20",
+      "a": 16,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A03",
+      "m": "异常",
+      "t": "4",
+      "a": 4,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A04",
+      "m": "底稿 sheet",
+      "t": "2",
+      "a": 2,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A05",
+      "m": "XML 发票导入",
+      "t": "1",
+      "a": 1,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A06",
+      "m": "可配置容差匹配(10%)",
+      "t": "20/20",
+      "a": 20,
+      "p": true
+    },
+    {
+      "i": "SKU-05-A07",
+      "m": "重复发票行检测",
+      "t": "0",
+      "a": 0,
+      "p": true
+    },
+    {
+      "i": "PS1-QS01",
+      "m": "quickstart 样例与金标一致",
+      "t": "1/1",
+      "a": 1,
+      "p": true,
+      "h": "1251123c9c41baf88839d27619018d253ad5faa5b684c7da83a3517033213f51",
+      "source": "synthetic/quickstart",
+      "counted": true
+    }
+  ],
+  "pass": true
+}
