@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
-  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way 数据流：发票/PO/GRN 的 CSV 与发票 XML → ap.import 导入本地存储域 → ap.match 三单匹配（1% 价格容差）→ ap.export 导出 Matches/Exceptions 底稿；ap.tolerance_match 与 ap.duplicate_check 只读">
+  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way 数据流：发票/PO/GRN 的 CSV 与发票 XML → ap_import 导入本地存储域 → ap_match 三单匹配（1% 价格容差）→ ap_export 导出 Matches/Exceptions 底稿；ap_tolerance_match 与 ap_duplicate_check 只读">
 </picture>
 
 # dsh-ap-three-way
@@ -90,25 +90,27 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 ## 核心能力
 
-- **三单匹配** —— `ap.match` 把每张发票行对上 PO 与 GRN：单价默认 1% 容差，数量超过收货即例外；matched / exception 连同原因写入本地存储域。
-- **可配置容差重算** —— `ap.tolerance_match` 以 bps（万分之一）为单位独立设置价格、数量、金额容差；只读重算，不覆盖已存匹配。
-- **重复发票行检测** —— `ap.duplicate_check` 在匹配前按供应商（大小写与空格不敏感）、PO 行、数量与金额找出重复行；只读。
-- **例外底稿导出** —— `ap.export` 把 Matches / Exceptions 两张工作表写成 `exports/ap-<时间戳>.xlsx`，返回路径与 sha256。
-- **发票 XML 导入** —— `ap.import_invoice_xml` 解析本地通用发票 XML（根节点 `<Invoice>`，含 `Seller/Name` 与 `Items/Item`）。
+- **三单匹配** —— `ap_match` 把每张发票行对上 PO 与 GRN：单价默认 1% 容差，数量超过收货即例外；matched / exception 连同原因写入本地存储域。
+- **可配置容差重算** —— `ap_tolerance_match` 以 bps（万分之一）为单位独立设置价格、数量、金额容差；只读重算，不覆盖已存匹配。
+- **重复发票行检测** —— `ap_duplicate_check` 在匹配前按供应商（大小写与空格不敏感）、PO 行、数量与金额找出重复行；只读。
+- **例外底稿导出** —— `ap_export` 把 Matches / Exceptions 两张工作表写成 `exports/ap-<时间戳>.xlsx`，返回路径与 sha256。
+- **发票 XML 导入** —— `ap_import_invoice_xml` 解析本地通用发票 XML（根节点 `<Invoice>`，含 `Seller/Name` 与 `Items/Item`）。
 - **纯本地** —— 源码中没有 HTTP / DNS / WebSocket 调用；不连接 ERP / 供应商系统，不上传数据。
 
 ### 工具面
 
 工具名是稳定 API（0.1.0 起有兼容承诺，破坏性变更需 minor 版本）；写文件的工具标 **R1（本地写）**，只读工具标 **R0**。
 
+0.2.0 起工具名改用下划线（如 `ap_import`）：provider 对 `tools[].name` 校验 `^[a-zA-Z0-9_-]+$`，点号会让整个 `tools` 数组被拒；旧点号名不再注册，请按下表迁移。
+
 | 工具 | 用途 | 风险 |
 |---|---|---|
-| `ap.import` | 导入发票、PO 和 GRN 行（CSV 文本作为参数传入）；重复导入同一发票按 `skipped` 跳过 | R1 本地写 |
-| `ap.import_invoice_xml` | 从本地通用发票 XML 导入发票行，可带 PO 引用 | R1 本地写 |
-| `ap.match` | 三单匹配：默认 1% 单价容差，数量超收货即例外；写入匹配与例外 | R1 本地写 |
-| `ap.export` | 导出 Matches / Exceptions 两表 xlsx 底稿 | R1 本地写 |
-| `ap.tolerance_match` | 按可配置容差（bps）重算三单匹配；只读，不覆盖已存匹配 | R0 只读 |
-| `ap.duplicate_check` | 匹配前检测重复发票行 | R0 只读 |
+| `ap_import` | 导入发票、PO 和 GRN 行（CSV 文本作为参数传入）；重复导入同一发票按 `skipped` 跳过 | R1 本地写 |
+| `ap_import_invoice_xml` | 从本地通用发票 XML 导入发票行，可带 PO 引用 | R1 本地写 |
+| `ap_match` | 三单匹配：默认 1% 单价容差，数量超收货即例外；写入匹配与例外 | R1 本地写 |
+| `ap_export` | 导出 Matches / Exceptions 两表 xlsx 底稿 | R1 本地写 |
+| `ap_tolerance_match` | 按可配置容差（bps）重算三单匹配；只读，不覆盖已存匹配 | R0 只读 |
+| `ap_duplicate_check` | 匹配前检测重复发票行 | R0 只读 |
 
 ### 输入与输出
 
@@ -149,7 +151,7 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 
 ## 配置
 
-本插件没有 Schemastery `Config` 配置键——`cordis.patch.yml` 只 `insert` 一行（见「三步上手」），没有可覆盖的插件级配置项。容差策略在调用 `ap.tolerance_match` 时以参数传入：
+本插件没有 Schemastery `Config` 配置键——`cordis.patch.yml` 只 `insert` 一行（见「三步上手」），没有可覆盖的插件级配置项。容差策略在调用 `ap_tolerance_match` 时以参数传入：
 
 | 参数 | 默认值 | 含义 |
 |---|---|---|
@@ -158,7 +160,7 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 | `amount_bps` | `0` | 金额容差；默认 0，不启用金额维度 |
 | `min_price_cents` | `1` | 单价容差下限（分），防止小额行被过严判定 |
 
-越界参数（非整数、负数、大于 10000）在调用时响亮失败，报错形如 `容差参数 price_bps 超出范围（E_AP_POLICY）｜下一步：把 price_bps 设为 0–10000 的整数`。`ap.match` 固定使用默认 1% 单价容差与「数量不超收货」，只有 `ap.tolerance_match` 接受这四个参数。
+越界参数（非整数、负数、大于 10000）在调用时响亮失败，报错形如 `容差参数 price_bps 超出范围（E_AP_POLICY）｜下一步：把 price_bps 设为 0–10000 的整数`。`ap_match` 固定使用默认 1% 单价容差与「数量不超收货」，只有 `ap_tolerance_match` 接受这四个参数。
 
 ## FAQ
 
@@ -179,7 +181,7 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 <details>
 <summary>价格在 1% 以内，为什么还是例外？</summary>
 
-默认容差只放宽「单价」，数量超过收货单（`qty_over_grn`）仍然算例外；PO 缺失（`po_missing`）、收货缺失（`grn_missing`）同理。需要放宽时用 `ap.tolerance_match` 显式传 `price_bps` / `qty_bps` / `amount_bps` 调容差，并保留策略参数备查。
+默认容差只放宽「单价」，数量超过收货单（`qty_over_grn`）仍然算例外；PO 缺失（`po_missing`）、收货缺失（`grn_missing`）同理。需要放宽时用 `ap_tolerance_match` 显式传 `price_bps` / `qty_bps` / `amount_bps` 调容差，并保留策略参数备查。
 
 </details>
 
@@ -252,13 +254,13 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 
 ```sh
 pnpm install --frozen-lockfile                            # node >=24.9 <25
-pnpm build && pnpm lint && pnpm typecheck && pnpm test    # tsc 构建 + lint + 26 个 node --test 用例
+pnpm build && pnpm lint && pnpm typecheck && pnpm test    # tsc 构建 + lint + 27 个 node --test 用例
 pnpm gate:sku05                                           # 验收门禁（ACCEPTANCE.csv）
 node scripts/acceptance.mjs                               # 重跑公开/合成验收
 node samples/quickstart/run.mjs                           # 合成样例，应输出 quickstart ok
 ```
 
-当前版本 `0.1.1`（与 `package.json` 一致）。测试：`node --test test/*.test.mjs` 全绿（10 个测试文件、26 个用例；`pnpm test` 已内置构建步骤）。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python；SVG 流程图深浅双版、五语共用），可重复执行：`python scripts/gen-readme-assets.py`。
+当前版本 `0.2.0`（与 `package.json` 一致）。测试：`node --test test/*.test.mjs` 全绿（11 个测试文件、27 个用例；`pnpm test` 已内置构建步骤）。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python；SVG 流程图深浅双版、五语共用），可重复执行：`python scripts/gen-readme-assets.py`。
 
 Topics：`deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

@@ -9,7 +9,7 @@ test('public MIT invoice XML import', async () => {
   const xml = readFileSync('fixtures/public/mit/invoice-github-sample.xml', 'utf8')
   const tools = createTools({ invoices: new T(), po: new T(), grn: new T(), matches: new T(), baseDir: '/tmp/ap-public' })
   const byName = Object.fromEntries(tools.map((tool) => [tool.name, tool]))
-  const result = await byName['ap.import_invoice_xml'].execute({ xml_text: xml, po_no: 'PO-PUBLIC' }, { callId: 'xml' })
+  const result = await byName['ap_import_invoice_xml'].execute({ xml_text: xml, po_no: 'PO-PUBLIC' }, { callId: 'xml' })
   assert.equal(result.rows, 1)
   assert.match(result.supplier, /云杉/)
 })

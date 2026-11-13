@@ -42,22 +42,22 @@ async function run() {
     const tools = Object.fromEntries(createTools(tables).map((tool) => [tool.name, tool]))
     const call = (name, args) => tools[name].execute(args, { callId: 'quickstart' })
 
-    const imported = await call('ap.import', {
+    const imported = await call('ap_import', {
       invoices_csv: invoicesCsv,
       po_csv: poCsv,
       grn_csv: grnCsv,
     })
-    const match = await call('ap.match', {})
-    const exported = await call('ap.export', {})
+    const match = await call('ap_match', {})
+    const exported = await call('ap_export', {})
     const workbook = readWorkbook(await readFile(exported.path))
-    const tolerance = await call('ap.tolerance_match', {
+    const tolerance = await call('ap_tolerance_match', {
       invoices_csv: invoicesCsv,
       po_csv: poCsv,
       grn_csv: grnCsv,
       price_bps: 1200,
     })
-    const duplicates = await call('ap.duplicate_check', { invoices_csv: duplicateCsv })
-    const xml = await call('ap.import_invoice_xml', { xml_text: invoiceXml, po_no: 'PO-9001' })
+    const duplicates = await call('ap_duplicate_check', { invoices_csv: duplicateCsv })
+    const xml = await call('ap_import_invoice_xml', { xml_text: invoiceXml, po_no: 'PO-9001' })
 
     const exceptions = [...tables.matches.entries()]
       .map(([, record]) => record)

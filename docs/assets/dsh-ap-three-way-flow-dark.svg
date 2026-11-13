@@ -10,17 +10,17 @@
 <path d="M246 198h33" stroke="#8b949e" stroke-width="3"/>
 <path d="M277 191l10 7-10 7" fill="none" stroke="#8b949e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="285" y="150" width="180" height="96" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
-<text x="375" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap.import</text>
+<text x="375" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap_import</text>
 <text x="375" y="218" fill="#8b949e" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">R1 local write</text>
 <path d="M471 198h33" stroke="#8b949e" stroke-width="3"/>
 <path d="M502 191l10 7-10 7" fill="none" stroke="#8b949e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="510" y="150" width="180" height="96" rx="14" fill="#161b22" stroke="#4B67B4" stroke-width="2"/>
-<text x="600" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap.match</text>
+<text x="600" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap_match</text>
 <text x="600" y="218" fill="#8b949e" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">1% price · qty>GRN → exc</text>
 <path d="M696 198h33" stroke="#8b949e" stroke-width="3"/>
 <path d="M727 191l10 7-10 7" fill="none" stroke="#8b949e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="735" y="150" width="180" height="96" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
-<text x="825" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap.export</text>
+<text x="825" y="190" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ap_export</text>
 <text x="825" y="218" fill="#8b949e" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">Matches / Exceptions</text>
 <path d="M921 198h33" stroke="#8b949e" stroke-width="3"/>
 <path d="M952 191l10 7-10 7" fill="none" stroke="#8b949e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,5 +31,5 @@
 <path d="M825 246v39" stroke="#4B67B4" stroke-width="2" stroke-dasharray="5 5"/>
 <rect x="285" y="285" width="630" height="52" rx="12" fill="#161b22" stroke="#4B67B4" stroke-width="2"/>
 <text x="600" y="318" fill="#f0f6fc" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14">storage domain ap · $DSH_HOME/storages/dsh-ap-three-way · no network</text>
-<text x="60" y="378" fill="#8b949e" font-family="ui-monospace,monospace" font-size="13">read-only R0: ap.tolerance_match (price_bps / qty_bps / amount_bps) · ap.duplicate_check · no model call</text>
+<text x="60" y="378" fill="#8b949e" font-family="ui-monospace,monospace" font-size="13">read-only R0: ap_tolerance_match (price_bps / qty_bps / amount_bps) · ap_duplicate_check · no model call</text>
 </svg>

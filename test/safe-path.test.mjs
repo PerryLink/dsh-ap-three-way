@@ -58,7 +58,7 @@ test('the export tool writes through safeExportPath under exports/', async () =>
   try {
     const tools = createTools({ invoices: new T(), po: new T(), grn: new T(), matches: new T(), baseDir: path.join(dir, 'store') })
     const by = Object.fromEntries(tools.map((tool) => [tool.name, tool]))
-    const result = await by['ap.export'].execute({}, { callId: 'path' })
+    const result = await by['ap_export'].execute({}, { callId: 'path' })
     assert.ok(result.path.startsWith(path.join(await realpath(dir), 'store', 'exports') + path.sep), result.path)
     assert.match(path.basename(result.path), /^[A-Za-z0-9._-]{1,120}$/)
   } finally { await rm(dir, { recursive: true, force: true }) }

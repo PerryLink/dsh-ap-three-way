@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
-  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="Flujo de datos de dsh-ap-three-way: CSV de factura/OC/recepción y XML de factura → ap.import al dominio de almacenamiento local → ap.match conciliación triple (tolerancia de precio del 1%) → ap.export hoja Matches/Exceptions; ap.tolerance_match y ap.duplicate_check son de solo lectura">
+  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="Flujo de datos de dsh-ap-three-way: CSV de factura/OC/recepción y XML de factura → ap_import al dominio de almacenamiento local → ap_match conciliación triple (tolerancia de precio del 1%) → ap_export hoja Matches/Exceptions; ap_tolerance_match y ap_duplicate_check son de solo lectura">
 </picture>
 
 # dsh-ap-three-way
@@ -92,25 +92,27 @@ Todos los plugins de PerryLink están en el mercado integrado de DSH Desktop: **
 
 ## Capacidades clave
 
-- **Conciliación triple** — `ap.match` confronta cada línea de factura con su OC y su GRN: tolerancia de precio unitario predeterminada del 1%, y cantidad por encima de lo recibido es excepción; matched/exception y el motivo se escriben en el dominio de almacenamiento local.
-- **Recálculo con tolerancia configurable** — `ap.tolerance_match` fija tolerancias de precio, cantidad e importe de forma independiente en puntos básicos; solo lectura, nunca sobrescribe las conciliaciones guardadas.
-- **Detección de líneas de factura duplicadas** — `ap.duplicate_check` marca duplicados antes de conciliar por proveedor (sin distinguir mayúsculas ni espacios), línea de OC, cantidad e importe; solo lectura.
-- **Exportación de la hoja de excepciones** — `ap.export` escribe las pestañas Matches / Exceptions en `exports/ap-<timestamp>.xlsx` y devuelve la ruta con su sha256.
-- **Importación de XML de factura** — `ap.import_invoice_xml` analiza un XML de factura genérico local (raíz `<Invoice>`, con `Seller/Name` y `Items/Item`).
+- **Conciliación triple** — `ap_match` confronta cada línea de factura con su OC y su GRN: tolerancia de precio unitario predeterminada del 1%, y cantidad por encima de lo recibido es excepción; matched/exception y el motivo se escriben en el dominio de almacenamiento local.
+- **Recálculo con tolerancia configurable** — `ap_tolerance_match` fija tolerancias de precio, cantidad e importe de forma independiente en puntos básicos; solo lectura, nunca sobrescribe las conciliaciones guardadas.
+- **Detección de líneas de factura duplicadas** — `ap_duplicate_check` marca duplicados antes de conciliar por proveedor (sin distinguir mayúsculas ni espacios), línea de OC, cantidad e importe; solo lectura.
+- **Exportación de la hoja de excepciones** — `ap_export` escribe las pestañas Matches / Exceptions en `exports/ap-<timestamp>.xlsx` y devuelve la ruta con su sha256.
+- **Importación de XML de factura** — `ap_import_invoice_xml` analiza un XML de factura genérico local (raíz `<Invoice>`, con `Seller/Name` y `Items/Item`).
 - **Puramente local** — sin llamadas HTTP / DNS / WebSocket en el código; sin conexiones a ERP ni a sistemas de proveedores, nada se sube.
 
 ### Superficie de herramientas
 
 Los nombres de las herramientas son una API estable (promesa de compatibilidad desde 0.1.0: los cambios disruptivos requieren un bump minor). Las herramientas que escriben se marcan **R1 (escritura local)** y las de solo lectura **R0**.
 
+Desde 0.2.0 los nombres usan guiones bajos (p. ej. `ap_import`): el proveedor valida `tools[].name` con `^[a-zA-Z0-9_-]+$` y un punto hace que se rechace todo el array `tools`. Los nombres con punto ya no se registran; migra según la tabla siguiente.
+
 | Herramienta | Propósito | Riesgo |
 |---|---|---|
-| `ap.import` | Importar filas de factura, OC y GRN (texto CSV como argumentos); reimportar la misma factura se omite vía `skipped` | R1 escritura local |
-| `ap.import_invoice_xml` | Importar líneas de factura desde un XML genérico local, con referencia de OC opcional | R1 escritura local |
-| `ap.match` | Conciliación triple: tolerancia de precio unitario predeterminada del 1%, cantidad por encima de lo recibido es excepción; guarda conciliaciones y excepciones | R1 escritura local |
-| `ap.export` | Exportar la hoja xlsx de dos pestañas Matches / Exceptions | R1 escritura local |
-| `ap.tolerance_match` | Repetir la conciliación triple con tolerancia configurable (bps); solo lectura, no sobrescribe lo guardado | R0 solo lectura |
-| `ap.duplicate_check` | Detectar líneas de factura duplicadas antes de conciliar | R0 solo lectura |
+| `ap_import` | Importar filas de factura, OC y GRN (texto CSV como argumentos); reimportar la misma factura se omite vía `skipped` | R1 escritura local |
+| `ap_import_invoice_xml` | Importar líneas de factura desde un XML genérico local, con referencia de OC opcional | R1 escritura local |
+| `ap_match` | Conciliación triple: tolerancia de precio unitario predeterminada del 1%, cantidad por encima de lo recibido es excepción; guarda conciliaciones y excepciones | R1 escritura local |
+| `ap_export` | Exportar la hoja xlsx de dos pestañas Matches / Exceptions | R1 escritura local |
+| `ap_tolerance_match` | Repetir la conciliación triple con tolerancia configurable (bps); solo lectura, no sobrescribe lo guardado | R0 solo lectura |
+| `ap_duplicate_check` | Detectar líneas de factura duplicadas antes de conciliar | R0 solo lectura |
 
 ### Entrada y salida
 
@@ -152,7 +154,7 @@ PS1-QS01,quickstart 样例与金标一致,1/1,1,true,synthetic/quickstart,true
 
 ## Configuración
 
-Este plugin no tiene claves `Config` de Schemastery — `cordis.patch.yml` solo `insert` una fila (ver «Instalación en tres pasos»), así que no hay ninguna clave de plugin que sobrescribir. La política de tolerancia se pasa como argumentos a `ap.tolerance_match`:
+Este plugin no tiene claves `Config` de Schemastery — `cordis.patch.yml` solo `insert` una fila (ver «Instalación en tres pasos»), así que no hay ninguna clave de plugin que sobrescribir. La política de tolerancia se pasa como argumentos a `ap_tolerance_match`:
 
 | Parámetro | Predeterminado | Significado |
 |---|---|---|
@@ -167,7 +169,7 @@ Los argumentos fuera de rango (no enteros, negativos, mayores que 10000) fallan 
 容差参数 price_bps 超出范围（E_AP_POLICY）｜下一步：把 price_bps 设为 0–10000 的整数
 ```
 
-`ap.match` usa siempre la tolerancia de precio unitario predeterminada del 1% más «cantidad no superior a lo recibido»; solo `ap.tolerance_match` acepta estos cuatro parámetros.
+`ap_match` usa siempre la tolerancia de precio unitario predeterminada del 1% más «cantidad no superior a lo recibido»; solo `ap_tolerance_match` acepta estos cuatro parámetros.
 
 ## FAQ
 
@@ -188,7 +190,7 @@ Confirma DSH `>=0.2.1-rc.3 <0.4.0` y Node `>=24.9 <25`, y reintenta con un `DSH_
 <details>
 <summary>El precio está dentro del 1%, ¿por qué la línea sigue siendo excepción?</summary>
 
-La tolerancia predeterminada solo relaja el «precio unitario»; la cantidad por encima de la recepción (`qty_over_grn`) sigue siendo excepción, igual que una OC ausente (`po_missing`) o una recepción ausente (`grn_missing`). Para relajar más, llama a `ap.tolerance_match` con `price_bps` / `qty_bps` / `amount_bps` explícitos y conserva los parámetros de la política.
+La tolerancia predeterminada solo relaja el «precio unitario»; la cantidad por encima de la recepción (`qty_over_grn`) sigue siendo excepción, igual que una OC ausente (`po_missing`) o una recepción ausente (`grn_missing`). Para relajar más, llama a `ap_tolerance_match` con `price_bps` / `qty_bps` / `amount_bps` explícitos y conserva los parámetros de la política.
 
 </details>
 
@@ -261,13 +263,13 @@ Cada checker es un paquete independiente con su propio paquete de reglas y versi
 
 ```sh
 pnpm install --frozen-lockfile                            # node >=24.9 <25
-pnpm build && pnpm lint && pnpm typecheck && pnpm test    # build tsc + lint + 26 casos node --test
+pnpm build && pnpm lint && pnpm typecheck && pnpm test    # build tsc + lint + 27 casos node --test
 pnpm gate:sku05                                           # puerta de aceptación (ACCEPTANCE.csv)
 node scripts/acceptance.mjs                               # repetir la aceptación pública/sintética
 node samples/quickstart/run.mjs                           # muestra sintética, debe imprimir quickstart ok
 ```
 
-Versión actual `0.1.1` (coincide con `package.json`). Pruebas: `node --test test/*.test.mjs` todo en verde (10 archivos de prueba, 26 casos; `pnpm test` compila primero). Las imágenes del README se generan programáticamente con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; par SVG de flujo claro/oscuro compartido por los cinco idiomas) y se pueden repetir: `python scripts/gen-readme-assets.py`.
+Versión actual `0.2.0` (coincide con `package.json`). Pruebas: `node --test test/*.test.mjs` todo en verde (11 archivos de prueba, 27 casos; `pnpm test` compila primero). Las imágenes del README se generan programáticamente con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; par SVG de flujo claro/oscuro compartido por los cinco idiomas) y se pueden repetir: `python scripts/gen-readme-assets.py`.
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

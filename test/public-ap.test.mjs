@@ -33,8 +33,8 @@ test('public MIT synthetic invoice scenarios: clean vs structural exceptions', a
     const grnCsv = hasPo ? `po_no,line_no,qty\n${row.po_number},1,${scenario === 'INV-S03' ? 0 : 1}` : 'po_no,line_no,qty\nPO-NONE,1,1'
     const tools = createTools({ invoices: new T(), po: new T(), grn: new T(), matches: new T(), baseDir: '/tmp/ap-public' })
     const byName = Object.fromEntries(tools.map((tool) => [tool.name, tool]))
-    await byName['ap.import'].execute({ invoices_csv: invoiceCsv, po_csv: poCsv, grn_csv: grnCsv }, { callId: scenario })
-    const result = await byName['ap.match'].execute({}, { callId: scenario })
+    await byName['ap_import'].execute({ invoices_csv: invoiceCsv, po_csv: poCsv, grn_csv: grnCsv }, { callId: scenario })
+    const result = await byName['ap_match'].execute({}, { callId: scenario })
     assert.equal(result.matched, expected, scenario)
   }
 })

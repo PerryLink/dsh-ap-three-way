@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
-  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way data flow: invoice/PO/GRN CSV and invoice XML → ap.import into the local storage domain → ap.match three-way match (1% price tolerance) → ap.export Matches/Exceptions workpaper; ap.tolerance_match and ap.duplicate_check are read-only">
+  <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way data flow: invoice/PO/GRN CSV and invoice XML → ap_import into the local storage domain → ap_match three-way match (1% price tolerance) → ap_export Matches/Exceptions workpaper; ap_tolerance_match and ap_duplicate_check are read-only">
 </picture>
 
 # dsh-ap-three-way
@@ -92,25 +92,27 @@ Every PerryLink plugin is listed in the built-in DSH Desktop market: **Market �
 
 ## Core capabilities
 
-- **Three-way match** — `ap.match` matches every invoice line against its PO and GRN: a 1% default unit-price tolerance, and quantity over receipt is an exception; matched/exception plus the reason are written to the local storage domain.
-- **Configurable tolerance re-run** — `ap.tolerance_match` sets price, quantity, and amount tolerances independently in basis points; read-only, never overwrites stored matches.
-- **Duplicate invoice-line detection** — `ap.duplicate_check` flags duplicate lines before matching by supplier (case- and space-insensitive), PO line, quantity, and amount; read-only.
-- **Exception workpaper export** — `ap.export` writes the Matches / Exceptions sheets to `exports/ap-<timestamp>.xlsx` and returns the path plus its sha256.
-- **Invoice XML import** — `ap.import_invoice_xml` parses a local generic invoice XML (root `<Invoice>`, with `Seller/Name` and `Items/Item`).
+- **Three-way match** — `ap_match` matches every invoice line against its PO and GRN: a 1% default unit-price tolerance, and quantity over receipt is an exception; matched/exception plus the reason are written to the local storage domain.
+- **Configurable tolerance re-run** — `ap_tolerance_match` sets price, quantity, and amount tolerances independently in basis points; read-only, never overwrites stored matches.
+- **Duplicate invoice-line detection** — `ap_duplicate_check` flags duplicate lines before matching by supplier (case- and space-insensitive), PO line, quantity, and amount; read-only.
+- **Exception workpaper export** — `ap_export` writes the Matches / Exceptions sheets to `exports/ap-<timestamp>.xlsx` and returns the path plus its sha256.
+- **Invoice XML import** — `ap_import_invoice_xml` parses a local generic invoice XML (root `<Invoice>`, with `Seller/Name` and `Items/Item`).
 - **Purely local** — no HTTP / DNS / WebSocket calls in the source; no ERP or vendor-system connections, nothing uploaded.
 
 ### Tool surface
 
 Tool names are a stable API (a compatibility promise since 0.1.0 — breaking changes require a minor bump). Writing tools are marked **R1 (local write)**, read-only tools **R0**.
 
+Since 0.2.0 tool names use underscores (e.g. `ap_import`): the provider validates `tools[].name` against `^[a-zA-Z0-9_-]+$`, and a dot makes it reject the whole `tools` array. The old dotted names are no longer registered — migrate using the table below.
+
 | Tool | Purpose | Risk |
 |---|---|---|
-| `ap.import` | Import invoice, PO, and GRN rows (CSV text passed as arguments); re-importing the same invoice is skipped via `skipped` | R1 local write |
-| `ap.import_invoice_xml` | Import invoice lines from a local generic invoice XML, optional PO reference | R1 local write |
-| `ap.match` | Three-way match: 1% default unit-price tolerance, quantity over receipt is an exception; stores matches and exceptions | R1 local write |
-| `ap.export` | Export the two-sheet Matches / Exceptions xlsx workpaper | R1 local write |
-| `ap.tolerance_match` | Re-run the three-way match under a configurable tolerance (bps); read-only, never overwrites stored matches | R0 read-only |
-| `ap.duplicate_check` | Detect duplicate invoice lines before matching | R0 read-only |
+| `ap_import` | Import invoice, PO, and GRN rows (CSV text passed as arguments); re-importing the same invoice is skipped via `skipped` | R1 local write |
+| `ap_import_invoice_xml` | Import invoice lines from a local generic invoice XML, optional PO reference | R1 local write |
+| `ap_match` | Three-way match: 1% default unit-price tolerance, quantity over receipt is an exception; stores matches and exceptions | R1 local write |
+| `ap_export` | Export the two-sheet Matches / Exceptions xlsx workpaper | R1 local write |
+| `ap_tolerance_match` | Re-run the three-way match under a configurable tolerance (bps); read-only, never overwrites stored matches | R0 read-only |
+| `ap_duplicate_check` | Detect duplicate invoice lines before matching | R0 read-only |
 
 ### Input and output
 
@@ -152,7 +154,7 @@ PS1-QS01,quickstart 样例与金标一致,1/1,1,true,synthetic/quickstart,true
 
 ## Configuration
 
-This plugin has no Schemastery `Config` keys — `cordis.patch.yml` only `insert`s one row (see "Three-step setup"), so there is no plugin-level key to override. The tolerance policy is passed as arguments to `ap.tolerance_match`:
+This plugin has no Schemastery `Config` keys — `cordis.patch.yml` only `insert`s one row (see "Three-step setup"), so there is no plugin-level key to override. The tolerance policy is passed as arguments to `ap_tolerance_match`:
 
 | Parameter | Default | Meaning |
 |---|---|---|
@@ -167,7 +169,7 @@ Out-of-range arguments (non-integer, negative, above 10000) fail loudly at call 
 容差参数 price_bps 超出范围（E_AP_POLICY）｜下一步：把 price_bps 设为 0–10000 的整数
 ```
 
-`ap.match` always uses the default 1% unit-price tolerance plus "quantity not over receipt"; only `ap.tolerance_match` accepts these four parameters.
+`ap_match` always uses the default 1% unit-price tolerance plus "quantity not over receipt"; only `ap_tolerance_match` accepts these four parameters.
 
 ## FAQ
 
@@ -188,7 +190,7 @@ Confirm DSH `>=0.2.1-rc.3 <0.4.0` and Node `>=24.9 <25`, then retry with a fresh
 <details>
 <summary>The price is within 1% — why is the line still an exception?</summary>
 
-The default tolerance only relaxes the unit price; quantity over the GRN (`qty_over_grn`) is still an exception, as are a missing PO (`po_missing`) and a missing receipt (`grn_missing`). To relax further, call `ap.tolerance_match` with explicit `price_bps` / `qty_bps` / `amount_bps` and keep the policy parameters on record.
+The default tolerance only relaxes the unit price; quantity over the GRN (`qty_over_grn`) is still an exception, as are a missing PO (`po_missing`) and a missing receipt (`grn_missing`). To relax further, call `ap_tolerance_match` with explicit `price_bps` / `qty_bps` / `amount_bps` and keep the policy parameters on record.
 
 </details>
 
@@ -261,13 +263,13 @@ Each checker is a separate package with its own rule pack and version; install o
 
 ```sh
 pnpm install --frozen-lockfile                            # node >=24.9 <25
-pnpm build && pnpm lint && pnpm typecheck && pnpm test    # tsc build + lint + 26 node --test cases
+pnpm build && pnpm lint && pnpm typecheck && pnpm test    # tsc build + lint + 27 node --test cases
 pnpm gate:sku05                                           # acceptance gate (ACCEPTANCE.csv)
 node scripts/acceptance.mjs                               # re-run the public/synthetic acceptance
 node samples/quickstart/run.mjs                           # synthetic sample, should print quickstart ok
 ```
 
-Current version `0.1.1` (matches `package.json`). Tests: `node --test test/*.test.mjs` all green (10 test files, 26 cases; `pnpm test` builds first). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; light/dark SVG flow pair shared by all five languages) and are safe to re-run: `python scripts/gen-readme-assets.py`.
+Current version `0.2.0` (matches `package.json`). Tests: `node --test test/*.test.mjs` all green (11 test files, 27 cases; `pnpm test` builds first). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; light/dark SVG flow pair shared by all five languages) and are safe to re-run: `python scripts/gen-readme-assets.py`.
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

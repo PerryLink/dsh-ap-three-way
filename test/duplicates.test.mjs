@@ -9,7 +9,7 @@ const exec = { callId: 'dup' }
 const csv = 'supplier,po_no,line_no,qty,unit_price,amount\nS1,PO1,1,10,100.00,1000.00\nS1,PO1,1,10,100.00,1000.00\nS1,PO1,2,5,50.00,250.00'
 
 test('an exact repeated line is reported once with its occurrence count', async () => {
-  const r = await tools['ap.duplicate_check'].execute({ invoices_csv: csv }, exec)
+  const r = await tools['ap_duplicate_check'].execute({ invoices_csv: csv }, exec)
   assert.equal(r.lines, 3)
   assert.equal(r.duplicates.length, 1)
   assert.equal(r.duplicates[0].po_no, 'PO1')
@@ -28,6 +28,6 @@ test('supplier comparison is case and space insensitive', () => {
 })
 
 test('different amounts on the same PO line are not duplicates', async () => {
-  const r = await tools['ap.duplicate_check'].execute({ invoices_csv: 'supplier,po_no,line_no,qty,unit_price,amount\nS1,PO2,1,10,100.00,1000.00\nS1,PO2,1,10,110.00,1100.00' }, exec)
+  const r = await tools['ap_duplicate_check'].execute({ invoices_csv: 'supplier,po_no,line_no,qty,unit_price,amount\nS1,PO2,1,10,100.00,1000.00\nS1,PO2,1,10,110.00,1100.00' }, exec)
   assert.deepEqual(r.duplicates, [])
 })

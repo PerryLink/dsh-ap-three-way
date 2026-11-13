@@ -31,10 +31,10 @@ test('re-importing the same invoice CSV is idempotent and reports skipped lines'
   const dir = await mkdtemp(path.join(os.tmpdir(), 'dsh-ap-idem-'))
   try {
     const { tables, by, exec } = await setup(dir)
-    const first = await by['ap.import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
+    const first = await by['ap_import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
     assert.equal(first.skipped, 0)
     assert.equal(tables.invoices.size, 2)
-    const second = await by['ap.import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
+    const second = await by['ap_import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
     assert.equal(second.skipped, 2)
     assert.equal(tables.invoices.size, 2)
   } finally { await rm(dir, { recursive: true, force: true }) }
@@ -44,9 +44,9 @@ test('different invoice lines no longer overwrite each other across imports', as
   const dir = await mkdtemp(path.join(os.tmpdir(), 'dsh-ap-idem-'))
   try {
     const { tables, by, exec } = await setup(dir)
-    await by['ap.import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
+    await by['ap_import'].execute({ invoices_csv: invoices, po_csv: po, grn_csv: grn }, exec)
     const other = 'supplier,po_no,line_no,qty,unit_price,amount\nS3,PO3,1,10,100.00,1000.00'
-    await by['ap.import'].execute({ invoices_csv: other, po_csv: po, grn_csv: grn }, exec)
+    await by['ap_import'].execute({ invoices_csv: other, po_csv: po, grn_csv: grn }, exec)
     assert.equal(tables.invoices.size, 3)
   } finally { await rm(dir, { recursive: true, force: true }) }
 })
@@ -56,10 +56,10 @@ test('XML invoice re-import is idempotent', async () => {
   try {
     const { tables, by, exec } = await setup(dir)
     const xml = readFileSync('fixtures/public/mit/invoice-github-sample.xml', 'utf8')
-    const first = await by['ap.import_invoice_xml'].execute({ xml_text: xml }, exec)
+    const first = await by['ap_import_invoice_xml'].execute({ xml_text: xml }, exec)
     assert.equal(first.rows, 1)
     assert.equal(first.skipped, 0)
-    const second = await by['ap.import_invoice_xml'].execute({ xml_text: xml }, exec)
+    const second = await by['ap_import_invoice_xml'].execute({ xml_text: xml }, exec)
     assert.equal(second.rows, 1)
     assert.equal(second.skipped, 1)
     assert.equal(tables.invoices.size, 1)

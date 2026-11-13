@@ -6,4 +6,4 @@
 
 ### alpha.1 — XML invoice import
 
-- Added `ap.import_invoice_xml`; MIT synthetic XML sample; gate 5 rows.
+- Added `ap_import_invoice_xml`; MIT synthetic XML sample; gate 5 rows.
