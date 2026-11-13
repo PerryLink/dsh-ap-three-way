@@ -5,7 +5,7 @@ Outputs (idempotent overwrite):
   dsh-ap-three-way-flow-light.svg / dsh-ap-three-way-flow-dark.svg
       Hero data-flow diagram. Two hand-written SVG files (vector — never
       rasterized to webp). Text inside is command-surface tokens only
-      (ap.import, ap.match, price_bps, ...), so all five README languages
+      (ap_import, ap_match, price_bps, ...), so all five README languages
       share the same pair.
 
 This plugin is pure host-side tooling with no UI and the repo ships no
@@ -62,9 +62,9 @@ def font(size: int) -> ImageFont.FreeTypeFont:
 # ---------------------------------------------------------------------------
 FLOW_NODES = [
     ("CSV / XML in", "invoices · po · grn"),
-    ("ap.import", "R1 local write"),
-    ("ap.match", "1% price · qty>GRN → exc"),
-    ("ap.export", "Matches / Exceptions"),
+    ("ap_import", "R1 local write"),
+    ("ap_match", "1% price · qty>GRN → exc"),
+    ("ap_export", "Matches / Exceptions"),
     ("exports/*.xlsx", "workpaper · sha256"),
 ]
 
@@ -129,8 +129,8 @@ def flow_svg(skin: str) -> str:
         f'dsh-ap-three-way · no network</text>')
     parts.append(
         f'<text x="60" y="378" fill="{s["sub"]}" font-family="ui-monospace,'
-        f'monospace" font-size="13">read-only R0: ap.tolerance_match '
-        f'(price_bps / qty_bps / amount_bps) · ap.duplicate_check · '
+        f'monospace" font-size="13">read-only R0: ap_tolerance_match '
+        f'(price_bps / qty_bps / amount_bps) · ap_duplicate_check · '
         f'no model call</text>')
     parts.append('</svg>')
     return "\n".join(parts) + "\n"

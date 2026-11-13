@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0] — 2026-11-13
+
+### Breaking
+
+- Tool names now use underscores instead of dots: `ap_import`, `ap_import_invoice_xml`, `ap_match`, `ap_export`, `ap_tolerance_match`, `ap_duplicate_check`. The model provider validates `tools[].name` against `^[a-zA-Z0-9_-]+$`; a dotted name makes it reject the whole `tools` array, so the plugin registered but every request carrying the tools failed. The old dotted names are no longer registered — update prompts, scripts and saved call history to the underscore names. Minor bump per the compatibility promise (breaking changes require a minor bump).
+
+### Added
+
+- Regression test `test/tool-name-wire.test.mjs`: every registered tool name matches `^[a-zA-Z0-9_-]+$`, contains no dot, and is unique.
+
 ## [0.1.0] — 2026-11-03
 
 ### Stable
@@ -22,13 +32,13 @@
 
 ### Added
 
-- `ap.duplicate_check`: duplicate invoice-line detection (same supplier, PO line, quantity and amount) before matching; supplier names are compared case- and space-insensitively. Verified by `node --test test/*.test.mjs` (11/11).
+- `ap_duplicate_check`: duplicate invoice-line detection (same supplier, PO line, quantity and amount) before matching; supplier names are compared case- and space-insensitively. Verified by `node --test test/*.test.mjs` (11/11).
 
 ## [Unreleased]
 
 ### Added
 
-- `ap.tolerance_match`: three-way match with a configurable policy — price, quantity and amount tolerances in basis points, explicit `matched`/`exception` reasons, and header-only GRN treated as "no receipt". Read-only; it does not overwrite stored matches. Verified by `node --test test/*.test.mjs` (8/8); fixtures are our own public/synthetic rows.
+- `ap_tolerance_match`: three-way match with a configurable policy — price, quantity and amount tolerances in basis points, explicit `matched`/`exception` reasons, and header-only GRN treated as "no receipt". Read-only; it does not overwrite stored matches. Verified by `node --test test/*.test.mjs` (8/8); fixtures are our own public/synthetic rows.
 
 ## [0.1.0-alpha.7] — 2026-11-01
 

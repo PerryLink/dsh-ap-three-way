@@ -5,7 +5,7 @@ import { createTools } from '../lib/plugin/tools.js'
 const po = 'po_no,line_no,qty,unit_price,amount\nPO1,1,10,100.00,1000.00'
 const grn = 'po_no,line_no,qty\nPO1,1,10'
 const tools = Object.fromEntries(createTools({ invoices: { get(){}, entries(){ return [] }, put(){} }, po: { get(){}, entries(){ return [] }, put(){} }, grn: { get(){}, entries(){ return [] }, put(){} }, matches: { get(){}, entries(){ return [] }, put(){} }, baseDir: '/tmp' }).map((t) => [t.name, t]))
-const run = (inv, extra = {}) => tools['ap.tolerance_match'].execute({ invoices_csv: `supplier,po_no,line_no,qty,unit_price,amount\n${inv}`, po_csv: po, grn_csv: grn, ...extra }, { callId: 'tol' })
+const run = (inv, extra = {}) => tools['ap_tolerance_match'].execute({ invoices_csv: `supplier,po_no,line_no,qty,unit_price,amount\n${inv}`, po_csv: po, grn_csv: grn, ...extra }, { callId: 'tol' })
 
 test('default policy keeps the 1% unit-price tolerance and zero quantity slack', async () => {
   const ok = await run('S,PO1,1,10,100.50,1005.00')
@@ -34,7 +34,7 @@ test('amount tolerance is opt-in and reports its own reason', async () => {
 })
 
 test('missing GRN is an exception and invalid policy is rejected', async () => {
-  const noGrn = await tools['ap.tolerance_match'].execute({ invoices_csv: 'supplier,po_no,line_no,qty,unit_price,amount\nS,PO1,1,10,100.00,1000.00', po_csv: po, grn_csv: 'po_no,line_no,qty' }, { callId: 'tol' })
+  const noGrn = await tools['ap_tolerance_match'].execute({ invoices_csv: 'supplier,po_no,line_no,qty,unit_price,amount\nS,PO1,1,10,100.00,1000.00', po_csv: po, grn_csv: 'po_no,line_no,qty' }, { callId: 'tol' })
   assert.equal(noGrn.results[0].reason, 'grn_missing')
   await assert.rejects(() => run('S,PO1,1,10,100.00,1000.00', { price_bps: 20000 }), /E_AP_POLICY/)
 })
