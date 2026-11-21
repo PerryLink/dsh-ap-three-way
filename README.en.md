@@ -142,6 +142,11 @@ node samples/quickstart/run.mjs --json # canonical result — the source of the 
 
 *Synthetic sample → gold file `samples/quickstart/expected/result.json`; the command and output hashes are recorded in `screenshots.json` (real run on 2026-11-02).*
 
+![Real dsh-ap-three-way quickstart run output](docs/assets/dsh-ap-three-way-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
+
 Public-fixture acceptance: input [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (public MIT sample); re-run `node scripts/acceptance.mjs`. Details in `ACCEPTANCE.csv`, quoted verbatim:
 
 ```text

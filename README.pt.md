@@ -142,6 +142,11 @@ node samples/quickstart/run.mjs --json # resultado canônico — origem do gabar
 
 *Amostra sintética → arquivo de gabarito `samples/quickstart/expected/result.json`; o comando e os hashes de saída estão em `screenshots.json` (execução real em 2026-11-02).*
 
+![Saída real da execução do quickstart do dsh-ap-three-way](docs/assets/dsh-ap-three-way-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 Aceitação com fixture pública: entrada [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (amostra MIT pública); repita com `node scripts/acceptance.mjs`. Detalhes em `ACCEPTANCE.csv`, citado literalmente:
 
 ```text

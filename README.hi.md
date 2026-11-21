@@ -142,6 +142,11 @@ node samples/quickstart/run.mjs --json # कैनोनिकल परिण�
 
 *सिंथेटिक सैंपल → गोल्ड फ़ाइल `samples/quickstart/expected/result.json`; कमांड और आउटपुट हैश `screenshots.json` में दर्ज हैं (2026-11-02 का वास्तविक रन)।*
 
+![dsh-ap-three-way quickstart रन का वास्तविक आउटपुट](docs/assets/dsh-ap-three-way-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 सार्वजनिक fixture स्वीकृति: इनपुट [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (सार्वजनिक MIT सैंपल); `node scripts/acceptance.mjs` से दोबारा चलाएँ। विवरण `ACCEPTANCE.csv` में, यथामूल्य उदृत:
 
 ```text

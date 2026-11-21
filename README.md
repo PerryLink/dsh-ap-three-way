@@ -140,6 +140,11 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 
 *合成样例 → 金标 `samples/quickstart/expected/result.json`；命令与输出哈希见 `screenshots.json`（2026-11-02 真实运行）。*
 
+![dsh-ap-three-way quickstart 真实运行输出](docs/assets/dsh-ap-three-way-demo.gif)
+
+*本仓库一次真实运行的动图回放。*
+
+
 公开 fixture 验收：输入 [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml)（公开 MIT 样本），重跑 `node scripts/acceptance.mjs`，明细见 `ACCEPTANCE.csv`：
 
 | req_id | metric | threshold | actual | pass | source | counted |

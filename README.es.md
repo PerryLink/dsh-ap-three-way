@@ -142,6 +142,11 @@ node samples/quickstart/run.mjs --json # resultado canónico — origen del oro 
 
 *Muestra sintética → archivo de oro `samples/quickstart/expected/result.json`; el comando y los hashes de salida están en `screenshots.json` (ejecución real del 2026-11-02).*
 
+![Salida real de la ejecución del quickstart de dsh-ap-three-way](docs/assets/dsh-ap-three-way-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 Aceptación con fixture pública: entrada [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (muestra MIT pública); se repite con `node scripts/acceptance.mjs`. Detalle en `ACCEPTANCE.csv`, citado literalmente:
 
 ```text
