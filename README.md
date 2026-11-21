@@ -1,6 +1,11 @@
 <div align="center">
 
 <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-hero-en-light.png">
+  <img src="docs/assets/dsh-ap-three-way-hero-en-light.png" width="100%" alt="dsh-ap-three-way：本机真实测试运行的终端输出——4 项测试全部通过（0 失败）；单张真实截图，深浅两种主题共用">
+</picture>
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
   <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way 数据流：发票/PO/GRN 的 CSV 与发票 XML → ap_import 导入本地存储域 → ap_match 三单匹配（1% 价格容差）→ ap_export 导出 Matches/Exceptions 底稿；ap_tolerance_match 与 ap_duplicate_check 只读">
 </picture>

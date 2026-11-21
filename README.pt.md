@@ -1,6 +1,11 @@
 <div align="center">
 
 <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-hero-en-light.png">
+  <img src="docs/assets/dsh-ap-three-way-hero-en-light.png" width="100%" alt="dsh-ap-three-way: saída real de terminal da execução local de testes — quatro testes passaram, zero falharam; uma única captura real partilhada pelos dois esquemas de cor">
+</picture>
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
   <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="Fluxo de dados do dsh-ap-three-way: CSV de fatura/OC/recebimento e XML de fatura → ap_import no domínio de armazenamento local → ap_match conciliação tripla (tolerância de preço de 1%) → ap_export planilha Matches/Exceptions; ap_tolerance_match e ap_duplicate_check são somente leitura">
 </picture>

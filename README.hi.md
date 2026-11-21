@@ -1,6 +1,11 @@
 <div align="center">
 
 <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-hero-en-light.png">
+  <img src="docs/assets/dsh-ap-three-way-hero-en-light.png" width="100%" alt="dsh-ap-three-way: स्थानीय परीक्षण रन का वास्तविक टर्मिनल आउटपुट — चार परीक्षण पास, शून्य विफल; एक ही वास्तविक कैप्चर दोनों रंग-योजनाओं के लिए साझा">
+</picture>
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
   <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way डेटा प्रवाह: इनवॉइस/PO/GRN CSV और इनवॉइस XML → ap_import स्थानीय स्टोरेज डोमेन में → ap_match तीन-तरफ़ा मिलान (1% मूल्य टॉलरेंस) → ap_export Matches/Exceptions वर्कपेपर; ap_tolerance_match और ap_duplicate_check रीड-ओनली हैं">
 </picture>

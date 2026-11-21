@@ -1,6 +1,11 @@
 <div align="center">
 
 <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-hero-en-light.png">
+  <img src="docs/assets/dsh-ap-three-way-hero-en-light.png" width="100%" alt="dsh-ap-three-way: real local test-run terminal output — four tests passed, zero failed; one real capture shared by both colour schemes">
+</picture>
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-ap-three-way-flow-dark.svg">
   <img src="docs/assets/dsh-ap-three-way-flow-light.svg" width="100%" alt="dsh-ap-three-way data flow: invoice/PO/GRN CSV and invoice XML → ap_import into the local storage domain → ap_match three-way match (1% price tolerance) → ap_export Matches/Exceptions workpaper; ap_tolerance_match and ap_duplicate_check are read-only">
 </picture>
