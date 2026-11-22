@@ -16,6 +16,8 @@
 
 A purely local AP three-way-match plugin for DeepSeek Harness: CSV/XML import, a 1% default price tolerance, a bps-tunable tolerance policy, and duplicate-line detection — no network, no model call.
 
+Last verified on DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Install](#three-step-setup) · [Configuration](#configuration) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -108,7 +110,7 @@ Every PerryLink plugin is listed in the built-in DSH Desktop market: **Market �
 
 Tool names are a stable API (a compatibility promise since 0.1.0 — breaking changes require a minor bump). Writing tools are marked **R1 (local write)**, read-only tools **R0**.
 
-Since 0.2.0 tool names use underscores (e.g. `ap_import`): the provider validates `tools[].name` against `^[a-zA-Z0-9_-]+$`, and a dot makes it reject the whole `tools` array. The old dotted names are no longer registered — migrate using the table below.
+Since 0.2.1 tool names use underscores (e.g. `ap_import`): the provider validates `tools[].name` against `^[a-zA-Z0-9_-]+$`, and a dot makes it reject the whole `tools` array. The old dotted names are no longer registered — migrate using the table below.
 
 | Tool | Purpose | Risk |
 |---|---|---|
@@ -150,7 +152,6 @@ node samples/quickstart/run.mjs --json # canonical result — the source of the 
 ![Real dsh-ap-three-way quickstart run output](docs/assets/dsh-ap-three-way-demo.gif)
 
 *Animated replay of a real run recorded in this repository.*
-
 
 Public-fixture acceptance: input [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (public MIT sample); re-run `node scripts/acceptance.mjs`. Details in `ACCEPTANCE.csv`, quoted verbatim:
 
@@ -279,7 +280,7 @@ node scripts/acceptance.mjs                               # re-run the public/sy
 node samples/quickstart/run.mjs                           # synthetic sample, should print quickstart ok
 ```
 
-Current version `0.2.0` (matches `package.json`). Tests: `node --test test/*.test.mjs` all green (11 test files, 27 cases; `pnpm test` builds first). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; light/dark SVG flow pair shared by all five languages) and are safe to re-run: `python scripts/gen-readme-assets.py`.
+Current version `0.2.1` (matches `package.json`). Tests: `node --test test/*.test.mjs` all green (11 test files, 27 cases; `pnpm test` builds first). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; light/dark SVG flow pair shared by all five languages) and are safe to re-run: `python scripts/gen-readme-assets.py`.
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

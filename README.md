@@ -16,6 +16,8 @@
 
 面向 DeepSeek Harness 的纯本地 AP 三单匹配插件：CSV/XML 导入、默认 1% 价格容差、可按 bps 调整的容差策略与重复行检测，全程不联网、不调用模型。
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -106,7 +108,7 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 工具名是稳定 API（0.1.0 起有兼容承诺，破坏性变更需 minor 版本）；写文件的工具标 **R1（本地写）**，只读工具标 **R0**。
 
-0.2.0 起工具名改用下划线（如 `ap_import`）：provider 对 `tools[].name` 校验 `^[a-zA-Z0-9_-]+$`，点号会让整个 `tools` 数组被拒；旧点号名不再注册，请按下表迁移。
+0.2.1 起工具名改用下划线（如 `ap_import`）：provider 对 `tools[].name` 校验 `^[a-zA-Z0-9_-]+$`，点号会让整个 `tools` 数组被拒；旧点号名不再注册，请按下表迁移。
 
 | 工具 | 用途 | 风险 |
 |---|---|---|
@@ -148,7 +150,6 @@ node samples/quickstart/run.mjs --json # 规范化结果，即金标 expected/re
 ![dsh-ap-three-way quickstart 真实运行输出](docs/assets/dsh-ap-three-way-demo.gif)
 
 *本仓库一次真实运行的动图回放。*
-
 
 公开 fixture 验收：输入 [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml)（公开 MIT 样本），重跑 `node scripts/acceptance.mjs`，明细见 `ACCEPTANCE.csv`：
 
@@ -270,7 +271,7 @@ node scripts/acceptance.mjs                               # 重跑公开/合成�
 node samples/quickstart/run.mjs                           # 合成样例，应输出 quickstart ok
 ```
 
-当前版本 `0.2.0`（与 `package.json` 一致）。测试：`node --test test/*.test.mjs` 全绿（11 个测试文件、27 个用例；`pnpm test` 已内置构建步骤）。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python；SVG 流程图深浅双版、五语共用），可重复执行：`python scripts/gen-readme-assets.py`。
+当前版本 `0.2.1`（与 `package.json` 一致）。测试：`node --test test/*.test.mjs` 全绿（11 个测试文件、27 个用例；`pnpm test` 已内置构建步骤）。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python；SVG 流程图深浅双版、五语共用），可重复执行：`python scripts/gen-readme-assets.py`。
 
 Topics：`deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

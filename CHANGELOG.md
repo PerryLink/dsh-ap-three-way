@@ -36,6 +36,10 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-22
+
+- Compatibility: declare DeepSeek Harness 0.2.3-alpha.1 support (>=0.2.3-0 <0.3.0-0 in engines.dsh and every @deepseek-ai/dsh-* peer range) and refresh README verification stamps.
+
 ### Added
 
 - `ap_tolerance_match`: three-way match with a configurable policy — price, quantity and amount tolerances in basis points, explicit `matched`/`exception` reasons, and header-only GRN treated as "no receipt". Read-only; it does not overwrite stored matches. Verified by `node --test test/*.test.mjs` (8/8); fixtures are our own public/synthetic rows.

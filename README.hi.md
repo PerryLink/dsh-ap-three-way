@@ -16,6 +16,8 @@
 
 DeepSeek Harness के लिए पूरी तरह स्थानीय AP तीन-तरफ़ा मिलान प्लगइन: CSV/XML इम्पोर्ट, 1% डिफ़ॉल्ट मूल्य टॉलरेंस, bps में समायोज्य टॉलरेंस नीति और डुप्लिकेट पंक्ति पहचान — बिना नेटवर्क, बिना मॉडल कॉल।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -108,7 +110,7 @@ dsh plugin --profile <profile> add dsh-ap-three-way
 
 टूल नाम स्थिर API हैं (0.1.0 से संगतता वचन: ब्रेकिंग बदलाव के लिए minor बम्प आवश्यक)। लिखने वाले टूल **R1 (स्थानीय लेखन)**, रीड-ओनली टूल **R0** चिह्नित हैं।
 
-0.2.0 से टूल नामों में अंडरस्कोर है (जैसे `ap_import`): प्रोवाइडर `tools[].name` को `^[a-zA-Z0-9_-]+$` से जाँचता है, और बिंदु होने पर पूरा `tools` ऐरे अस्वीकार हो जाता है। पुराने बिंदु-युक्त नाम अब पंजीकृत नहीं होते; नीचे की तालिका के अनुसार माइग्रेट करें।
+0.2.1 से टूल नामों में अंडरस्कोर है (जैसे `ap_import`): प्रोवाइडर `tools[].name` को `^[a-zA-Z0-9_-]+$` से जाँचता है, और बिंदु होने पर पूरा `tools` ऐरे अस्वीकार हो जाता है। पुराने बिंदु-युक्त नाम अब पंजीकृत नहीं होते; नीचे की तालिका के अनुसार माइग्रेट करें।
 
 | टूल | उद्देश्य | जोखिम |
 |---|---|---|
@@ -150,7 +152,6 @@ node samples/quickstart/run.mjs --json # कैनोनिकल परिण�
 ![dsh-ap-three-way quickstart रन का वास्तविक आउटपुट](docs/assets/dsh-ap-three-way-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
-
 
 सार्वजनिक fixture स्वीकृति: इनपुट [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (सार्वजनिक MIT सैंपल); `node scripts/acceptance.mjs` से दोबारा चलाएँ। विवरण `ACCEPTANCE.csv` में, यथामूल्य उदृत:
 
@@ -279,7 +280,7 @@ node scripts/acceptance.mjs                               # सार्वज�
 node samples/quickstart/run.mjs                           # सिंथेटिक सैंपल, quickstart ok प्रिंट करना चाहिए
 ```
 
-वर्तमान वर्ज़न `0.2.0` (`package.json` से मेल खाता है)। टेस्ट: `node --test test/*.test.mjs` सब हरे (11 टेस्ट फ़ाइलें, 27 केस; `pnpm test` पहले बिल्ड करता है)। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से प्रोग्रामेटिक रूप से बनती हैं (Python; सभी पाँच भाषाओं में साझा light/dark SVG फ़्लो जोड़ी) और दोबारा चलाई जा सकती हैं: `python scripts/gen-readme-assets.py`।
+वर्तमान वर्ज़न `0.2.1` (`package.json` से मेल खाता है)। टेस्ट: `node --test test/*.test.mjs` सब हरे (11 टेस्ट फ़ाइलें, 27 केस; `pnpm test` पहले बिल्ड करता है)। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से प्रोग्रामेटिक रूप से बनती हैं (Python; सभी पाँच भाषाओं में साझा light/dark SVG फ़्लो जोड़ी) और दोबारा चलाई जा सकती हैं: `python scripts/gen-readme-assets.py`।
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 

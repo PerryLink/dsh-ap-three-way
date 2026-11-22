@@ -16,6 +16,8 @@
 
 Um plugin de conciliação tripla de AP puramente local para o DeepSeek Harness: importação CSV/XML, tolerância de preço padrão de 1%, política de tolerância ajustável em bps e detecção de linhas duplicadas — sem rede e sem chamada a modelo.
 
+Última verificação: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalação-em-três-passos) · [Configuração](#configuração) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -108,7 +110,7 @@ Todos os plugins da PerryLink estão na loja embutida do DSH Desktop: **Market �
 
 Os nomes das ferramentas são uma API estável (promessa de compatibilidade desde 0.1.0: mudanças disruptivas exigem bump minor). Ferramentas que escrevem são marcadas **R1 (escrita local)**, as de somente leitura **R0**.
 
-Desde 0.2.0 os nomes usam sublinhado (ex.: `ap_import`): o provedor valida `tools[].name` com `^[a-zA-Z0-9_-]+$` e um ponto faz o array `tools` inteiro ser rejeitado. Os nomes com ponto não são mais registrados; migre conforme a tabela abaixo.
+Desde 0.2.1 os nomes usam sublinhado (ex.: `ap_import`): o provedor valida `tools[].name` com `^[a-zA-Z0-9_-]+$` e um ponto faz o array `tools` inteiro ser rejeitado. Os nomes com ponto não são mais registrados; migre conforme a tabela abaixo.
 
 | Ferramenta | Finalidade | Risco |
 |---|---|---|
@@ -150,7 +152,6 @@ node samples/quickstart/run.mjs --json # resultado canônico — origem do gabar
 ![Saída real da execução do quickstart do dsh-ap-three-way](docs/assets/dsh-ap-three-way-demo.gif)
 
 *Repetição animada de uma execução real registrada neste repositório.*
-
 
 Aceitação com fixture pública: entrada [`fixtures/public/mit/invoice-github-sample.xml`](https://github.com/PerryLink/dsh-ap-three-way/blob/main/fixtures/public/mit/invoice-github-sample.xml) (amostra MIT pública); repita com `node scripts/acceptance.mjs`. Detalhes em `ACCEPTANCE.csv`, citado literalmente:
 
@@ -279,7 +280,7 @@ node scripts/acceptance.mjs                               # repetir a aceitaçã
 node samples/quickstart/run.mjs                           # amostra sintética, deve imprimir quickstart ok
 ```
 
-Versão atual `0.2.0` (confere com `package.json`). Testes: `node --test test/*.test.mjs` tudo verde (11 arquivos de teste, 27 casos; `pnpm test` compila antes). As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; par SVG de fluxo claro/escuro compartilhado pelos cinco idiomas) e podem ser refeitas: `python scripts/gen-readme-assets.py`.
+Versão atual `0.2.1` (confere com `package.json`). Testes: `node --test test/*.test.mjs` tudo verde (11 arquivos de teste, 27 casos; `pnpm test` compila antes). As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python; par SVG de fluxo claro/escuro compartilhado pelos cinco idiomas) e podem ser refeitas: `python scripts/gen-readme-assets.py`.
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `ap`, `three-way-match`, `finance`, `perrylink`, `invoice`
 
