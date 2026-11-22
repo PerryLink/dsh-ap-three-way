@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "AP three-way match",
+    "description": "Match invoices, purchase orders, and goods receipts line by line — postable rows pass, exceptions land in a workpaper with their reasons."
+  }
+}

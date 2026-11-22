@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "AP 三单匹配",
+    "description": "面向 DeepSeek Harness 的纯本地 AP 三单匹配插件：CSV/XML 导入、默认 1% 价格容差、可按 bps 调整的容差策略与重复行检测，全程不联网、不调用模型。"
+  }
+}
